@@ -1,0 +1,27 @@
+.empty-image {
+    width: 346px;
+    height: 260px;
+    display: block;
+    margin: 30px auto;
+  }
+  
+  .modal-body {
+    margin-top: 98px;
+    text-align: center;
+    width: 700px;
+    height: 500px;
+  }
+  
+  .add-staff-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 22px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .add-staff-btn:hover {
+    background-color: #45a049;
+  }

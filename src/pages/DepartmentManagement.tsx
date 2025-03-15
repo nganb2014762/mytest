@@ -6,6 +6,7 @@ import RoleModal from "./RoleModal";
 import Department from "./Department";
 import DepartmentUpdate from "./DepartmentUpdate";
 import DeleteConfirmModal from "./DepartmentDelete";
+import View from "./View";
 const departments = [
   { id: 1, name: "Phòng kinh doanh", count: 8 },
   { id: 2, name: "Phòng công nghệ", count: 4 },
@@ -16,6 +17,8 @@ const roles = ["Trưởng phòng", "Phó phòng", "Nhân viên", "Phó Giám Đ�
 const rowsPerPageOptions = [5, 10, 15];
 
 const DepartmentManagement = () => {
+  const [isView, setIsView] = useState(false);
+  const [viewDepartment, setViewDepartment] = useState<string | null>(null);
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
   const [isDepartmentUpdate, setIsDepartmentUpdate] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -79,7 +82,14 @@ const DepartmentManagement = () => {
                   <td>{dept.name}</td>
                   <td>{dept.count}</td>
                   <td className="actions">
-                    <BiSolidCarousel className="status-icon" />
+                    <BiSolidCarousel
+                      className="status-icon"
+                      onClick={() => {
+                        setViewDepartment(dept.name);
+                        setIsView(true);
+                      }}
+                    />
+
                     <FaPen
                       className="edit-icon"
                       onClick={() => setIsDepartmentUpdate(true)}
@@ -186,6 +196,14 @@ const DepartmentManagement = () => {
           onClose={() => setIsDeleteModalOpen(false)}
           onConfirm={handleConfirmDelete}
           departmentName={selectedDepartment}
+        />
+        <View
+          isOpen={isView}
+          departmentName={viewDepartment}
+          onClose={() => {
+            setIsView(false);
+            setViewDepartment(null);
+          }}
         />
       </div>
     </div>
