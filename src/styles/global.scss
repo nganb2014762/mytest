@@ -1,0 +1,398 @@
+.app-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: #050505;
+}
+
+.sidebar {
+  width: 256px;
+  background-color: #2e7d32;
+  color: white;
+  padding: 20px;
+  .logo {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      padding: 10px;
+      cursor: pointer;
+      &.active {
+        background-color: #1b5e20;
+      }
+      &:hover {
+        background-color: #388e3c;
+      }
+    }
+  }
+}
+
+.main-content {
+  flex: 1;
+  background: #f5f5f5;
+  width: calc(100vw - 250px);
+}
+
+.header {
+  width: 100%;
+  height: 96px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  margin-right: 20px;
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    width: 558px;
+    height: 56px;
+    border-radius: 28px;
+    padding: 0 15px;
+    background-color: #e6e0e9;
+    margin-left: 20px;
+
+    .menu-icon {
+      font-size: 20px;
+      margin-right: 10px;
+      color: gray;
+      cursor: pointer;
+    }
+
+    input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      background-color: #e6e0e9;
+
+      &::placeholder {
+        color: #aaa;
+      }
+    }
+
+    .search-icon {
+      font-size: 20px;
+      color: gray;
+      cursor: pointer;
+    }
+  }
+
+  .user-info {
+    width: 326px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    gap: 20px;
+
+    .user-text {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+
+      .user-name {
+        font-size: 16px;
+        font-weight: bold;
+        color: black;
+      }
+
+      .user-role {
+        font-size: 14px;
+        color: #4caf50;
+      }
+    }
+
+    .user-avatar {
+      font-size: 40px;
+      color: #d3d3d3;
+    }
+
+    .notification {
+      position: relative;
+      .bell-icon {
+        font-size: 24px;
+        color: #d3d3d3;
+        cursor: pointer;
+      }
+      .badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: red;
+        color: D3D3D3;
+        font-size: 12px;
+        font-weight: bold;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .logout-icon {
+      font-size: 24px;
+      color: #f44336;
+      cursor: pointer;
+    }
+  }
+}
+
+.department-management {
+  border-radius: 8px;
+
+  .header-1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-top: 1px solid #837e8e;
+
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+      color: #050505;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: #e6e6e6;
+      padding: 8px 12px;
+      border-radius: 20px;
+      width: 360px;
+      height: 40px;
+      input {
+        border: none;
+        background: transparent;
+        outline: none;
+        padding-left: 8px;
+        width: 100%;
+        font-size: 14px;
+        color: #777;
+      }
+      .search-icon {
+        color: #777;
+      }
+    }
+
+    .create-btn {
+      background: #4caf50;
+      width: 116px;
+      height: 40px;
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background: #f5f5f5;
+  }
+
+  .table-container {
+    width: 749px;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        color: gray;
+        border-bottom: 1px solid #ddd;
+      }
+      th {
+        background: #d9dfd7;
+      }
+      .edit-icon,
+      .delete-icon,
+      .status-icon {
+        margin: 0 6px;
+      }
+      .actions {
+        align-items: center;
+        gap: 12px;
+      }
+      .edit-icon {
+        color: green;
+        cursor: pointer;
+      }
+      .delete-icon {
+        color: red;
+        cursor: pointer;
+      }
+      .status-icon {
+        color: green;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .role-container {
+    background: #16491626;
+    padding: 20px;
+    width: 362px;
+    height: 450px;
+
+    .role-name {
+      color: #050505;
+    }
+
+    .create-role {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: #d9dfd7;
+      color: #4caf50;
+      border-color: #4caf50;
+      border: 1;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      display: flex;
+    }
+
+    .role-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: green;
+      margin-right: 10px;
+      transition: background 0.3s ease;
+
+      &.inactive {
+        background: gray;
+      }
+    }
+
+    .role-name {
+      flex: 1;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    .remove {
+      color: #808080;
+      cursor: pointer;
+      font-size: 18px;
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 250px;
+
+  .filter-btn {
+    display: flex;
+    width: 104px;
+    height: 40px;
+    align-items: center;
+    gap: 6px;
+    background: #e6e6e6;
+    border: none;
+    color: #050505;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  .rows-per-page {
+    display: flex;
+    width: 198px;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 5px;
+    gap: 8px;
+    font-size: 14px;
+    color: gray;
+
+    select {
+      margin-left: 40px;
+      border: none;
+      width: 40px;
+      padding: 4px;
+      color: #050505;
+      background-color: #f5f5f5;
+      cursor: pointer;
+    }
+  }
+
+  .page-controls {
+    display: flex;
+    width: 208px;
+    height: 20px;
+    align-items: center;
+    gap: 10px;
+
+    button {
+      background: #f5f5f5;
+      color: #050505;
+      border: none;
+      padding: 8px 10px;
+      cursor: pointer;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    span {
+      font-size: 14px;
+      color: #050505;
+      font-weight: bold;
+    }
+  }
+}
