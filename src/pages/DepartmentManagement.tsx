@@ -5,7 +5,7 @@ import { IoFilterSharp } from "react-icons/io5";
 import RoleModal from "./RoleModal";
 import Department from "./Department";
 import DepartmentUpdate from "./DepartmentUpdate";
-
+import DeleteConfirmModal from "./DepartmentDelete";
 const departments = [
   { id: 1, name: "Phòng kinh doanh", count: 8 },
   { id: 2, name: "Phòng công nghệ", count: 4 },
@@ -18,11 +18,12 @@ const rowsPerPageOptions = [5, 10, 15];
 const DepartmentManagement = () => {
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
   const [isDepartmentUpdate, setIsDepartmentUpdate] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedDepartment, setSelectedDepartment] = useState<string>("");
   const [isDepartment, setIsDepartment] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(3);
   const [selectedRole, setSelectedRole] = useState<number | null>(null);
-  
 
   const totalPages = Math.ceil(departments.length / rowsPerPage);
   const startIndex = (currentPage - 1) * rowsPerPage;
@@ -30,6 +31,16 @@ const DepartmentManagement = () => {
     startIndex,
     startIndex + rowsPerPage
   );
+
+  const handleDeleteClick = (deptName: string) => {
+    setSelectedDepartment(deptName);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    console.log(`Xóa phòng ban: ${selectedDepartment}`);
+    setIsDeleteModalOpen(false);
+  };
 
   const handleRoleClick = (index: number) => {
     setSelectedRole(index === selectedRole ? null : index);
@@ -69,8 +80,14 @@ const DepartmentManagement = () => {
                   <td>{dept.count}</td>
                   <td className="actions">
                     <BiSolidCarousel className="status-icon" />
-                    <FaPen className="edit-icon" onClick={() => setIsDepartmentUpdate(true)} />
-                    <FaTrash className="delete-icon" />
+                    <FaPen
+                      className="edit-icon"
+                      onClick={() => setIsDepartmentUpdate(true)}
+                    />
+                    <FaTrash
+                      className="delete-icon"
+                      onClick={() => handleDeleteClick(dept.name)}
+                    />
                   </td>
                 </tr>
               ))}
@@ -153,17 +170,23 @@ const DepartmentManagement = () => {
           </ul>
         </div>
         <RoleModal
-           isOpen={isRoleModalOpen}
-           onClose={() => setIsRoleModalOpen(false)}
-         />
-          <Department
-           isOpen={isDepartment}
-           onClose={() => setIsDepartment(false)}
-         />
-         <DepartmentUpdate
-           isOpen={isDepartmentUpdate}
-           onClose={() => setIsDepartmentUpdate(false)}
-         />
+          isOpen={isRoleModalOpen}
+          onClose={() => setIsRoleModalOpen(false)}
+        />
+        <Department
+          isOpen={isDepartment}
+          onClose={() => setIsDepartment(false)}
+        />
+        <DepartmentUpdate
+          isOpen={isDepartmentUpdate}
+          onClose={() => setIsDepartmentUpdate(false)}
+        />
+        <DeleteConfirmModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={handleConfirmDelete}
+          departmentName={selectedDepartment}
+        />
       </div>
     </div>
   );
