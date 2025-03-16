@@ -20,7 +20,9 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
   const [isStaffModalOpen, setIsStaffModalOpen] = useState(false);
   const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
-  
+
+  const [isUnitDropdownOpen, setIsUnitDropdownOpen] = useState(false);
+  const [selectedUnit, setSelectedUnit] = useState("");
 
   const [hasStaff, setHasStaff] = useState(false);
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
@@ -30,6 +32,15 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
   const toggleRoleDropdown = () => {
     setIsRoleDropdownOpen(!isRoleDropdownOpen);
     setSelectedRole("");
+  };
+  const toggleUnitDropdown = () => {
+    setIsUnitDropdownOpen(!isUnitDropdownOpen);
+    setSelectedUnit("");
+  };
+
+  const handleConfirmUnitChange = () => {
+    console.log("Chuyển sang đơn vị:", selectedUnit);
+    setIsUnitDropdownOpen(false);
   };
 
   const handleConfirmRoleChange = () => {
@@ -198,7 +209,10 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
                   Đổi chức vụ
                 </button>
 
-                <button className="change-unit">Đổi đơn vị</button>
+                <button className="change-unit" onClick={toggleUnitDropdown}>
+                  Đổi đơn vị
+                </button>
+
                 <button className="remove-staff">Xóa khỏi phòng ban</button>
               </div>
             )}
@@ -232,6 +246,37 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
                 </div>
               </div>
             )}
+            {isUnitDropdownOpen && (
+              <div className="change-department-1">
+                <div className="change-department-dropdown show">
+                  <label style={{ color: "black" }}>Đổi đơn vị</label>
+                  <select
+                    value={selectedUnit}
+                    onChange={(e) => setSelectedUnit(e.target.value)}
+                  >
+                    <option value="Nhân 1">Nhân 1</option>
+                    <option value="Nhân 2">Nhân 2</option>
+                    <option value="Nhân 3">Nhân 3</option>
+                  </select>
+                  <div className="department-actions">
+                    <button
+                      className="cancel-btn-1"
+                      onClick={() => setIsUnitDropdownOpen(false)}
+                    >
+                      Hủy bỏ
+                    </button>
+                    <button
+                      className="confirm-btn-1"
+                      onClick={handleConfirmUnitChange}
+                      disabled={!selectedUnit}
+                    >
+                      Xác nhận
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {isRoleDropdownOpen && (
               <div className="change-department-1">
                 <div className="change-department-dropdown show">
