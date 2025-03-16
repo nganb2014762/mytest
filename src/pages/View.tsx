@@ -20,9 +20,32 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
   const [isStaffModalOpen, setIsStaffModalOpen] = useState(false);
   const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
+  const [isRemoveConfirmOpen, setIsRemoveConfirmOpen] = useState(false);
+  const [staffToRemove, setStaffToRemove] = useState<string | null>(null);
+
+  const handleConfirmRemove = () => {
+    if (staffToRemove) {
+      setSelectedStaff((prev) =>
+        prev.filter((staff) => staff.name !== staffToRemove)
+      );
+      setSelectedCheckboxes((prev) =>
+        prev.filter((name) => name !== staffToRemove)
+      );
+      setStaffToRemove(null);
+    }
+    setIsRemoveConfirmOpen(false);
+  };
+  const handleCancelRemove = () => {
+    setIsRemoveConfirmOpen(false);
+    setStaffToRemove(null);
+  };
 
   const [isUnitDropdownOpen, setIsUnitDropdownOpen] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState("");
+  const handleOpenRemoveConfirm = (staffName: string) => {
+    setStaffToRemove(staffName);
+    setIsRemoveConfirmOpen(true);
+  };
 
   const [hasStaff, setHasStaff] = useState(false);
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
@@ -213,7 +236,12 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
                   Đổi đơn vị
                 </button>
 
-                <button className="remove-staff">Xóa khỏi phòng ban</button>
+                <button
+                  className="remove-staff"
+                  onClick={() => handleOpenRemoveConfirm("Ky Kellaway")}
+                >
+                  Xóa khỏi phòng ban
+                </button>
               </div>
             )}
             {isDepartmentDropdownOpen && (
@@ -246,6 +274,20 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
                 </div>
               </div>
             )}
+            {isRemoveConfirmOpen && (
+              <div className="remove-confirm">
+                <p style={{color:"black"}}>Chắc chắn xóa người này khỏi phòng ban?</p>
+                <div className="confirm-actions">
+                  <button className="cancel-btn-3" onClick={handleCancelRemove}>
+                    Hủy bỏ
+                  </button>
+                  <button className="confirm-btn-3" onClick={handleConfirmRemove}>
+                    Xác nhận
+                  </button>
+                </div>
+              </div>
+            )}
+
             {isUnitDropdownOpen && (
               <div className="change-department-1">
                 <div className="change-department-dropdown show">
@@ -254,9 +296,9 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
                     value={selectedUnit}
                     onChange={(e) => setSelectedUnit(e.target.value)}
                   >
-                    <option value="Nhân 1">Nhân 1</option>
-                    <option value="Nhân 2">Nhân 2</option>
-                    <option value="Nhân 3">Nhân 3</option>
+                    <option value="Nhân 1">Đơn vị 1</option>
+                    <option value="Nhân 2">Đơn vị 2</option>
+                    <option value="Nhân 3">Đơn vị 3</option>
                   </select>
                   <div className="department-actions">
                     <button
