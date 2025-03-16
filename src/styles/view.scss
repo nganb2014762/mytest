@@ -184,20 +184,19 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
-  appearance: none; 
+  appearance: none;
 }
 
 .staff-table .staff-checkbox:checked {
   border-color: #007bff;
 }
 .staff-table .staff-checkbox:checked::after {
-  content: "✔"; 
+  content: "✔";
   font-size: 14px;
-  color: #0b0c0c; 
+  color: #0b0c0c;
   position: absolute;
   font-weight: bold;
 }
-
 
 .staff-table .staff-status {
   display: flex;
@@ -271,21 +270,55 @@
   display: flex;
   align-items: center;
   width: 60%;
-
 }
 
 .search-icon-2 {
   position: absolute;
   left: 10px;
   color: #888;
-  
 }
 
 .search-input-2 {
   width: 100%;
-  padding: 8px 12px 8px 35px; 
+  padding: 8px 12px 8px 35px;
   border-radius: 20px;
   border: 1px solid #ccc;
   font-size: 14px;
   background-color: #eae6e6;
+}
+
+.staff-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding: 10px;
+  background: #fff;
+}
+
+.staff-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.staff-actions button:hover {
+  text-decoration: underline;
+}
+
+.remove-staff {
+  color: red;
+}
+
+.change-department {
+  color: #007aff;
+}
+.change-role {
+  color: red;
+}
+.change-unit {
+  color: #007aff;
+}
+.remove-staff {
+  color: red;
 }

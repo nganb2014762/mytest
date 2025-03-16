@@ -19,6 +19,15 @@ interface Staff {
 const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
   const [isStaffModalOpen, setIsStaffModalOpen] = useState(false);
   const [hasStaff, setHasStaff] = useState(false);
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
+
+  const handleCheckboxChange = (staffName: string) => {
+    setSelectedCheckboxes((prev) =>
+      prev.includes(staffName)
+        ? prev.filter((name) => name !== staffName)
+        : [...prev, staffName]
+    );
+  };
 
   const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState<Staff[]>([]);
@@ -99,7 +108,12 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
                       {selectedStaff.map((staff, index) => (
                         <tr key={index} className="staff-row">
                           <td>
-                            <input type="checkbox" className="staff-checkbox" />
+                            <input
+                              type="checkbox"
+                              className="staff-checkbox"
+                              checked={selectedCheckboxes.includes(staff.name)}
+                              onChange={() => handleCheckboxChange(staff.name)}
+                            />
                           </td>
                           <td>
                             <img
@@ -146,6 +160,14 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
               onClose={handleCloseStaffModal}
               onAddStaff={handleAddStaff}
             />
+            {selectedCheckboxes.length > 0 && (
+              <div className="staff-actions">
+                <button className="change-department">Đổi phòng ban</button>
+                <button className="change-role">Đổi chức vụ</button>
+                <button className="change-unit">Đổi đơn vị</button>
+                <button className="remove-staff">Xóa khỏi phòng ban</button>
+              </div>
+            )}
           </div>
         </div>
       </div>
