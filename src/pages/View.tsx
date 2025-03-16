@@ -18,15 +18,28 @@ interface Staff {
 
 const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
   const [isStaffModalOpen, setIsStaffModalOpen] = useState(false);
+  const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("");
+  
+
   const [hasStaff, setHasStaff] = useState(false);
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
   const [isDepartmentDropdownOpen, setIsDepartmentDropdownOpen] =
     useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState("");
+  const toggleRoleDropdown = () => {
+    setIsRoleDropdownOpen(!isRoleDropdownOpen);
+    setSelectedRole("");
+  };
+
+  const handleConfirmRoleChange = () => {
+    console.log("Chuyển sang chức vụ:", selectedRole);
+    setIsRoleDropdownOpen(false);
+  };
 
   const toggleDepartmentDropdown = () => {
     setIsDepartmentDropdownOpen(!isDepartmentDropdownOpen);
-    setSelectedDepartment(""); // Reset dropdown khi mở lại
+    setSelectedDepartment("");
   };
 
   const handleConfirmChange = () => {
@@ -53,20 +66,20 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
   const handleAddStaff = (staff: Staff) => {
     if (!selectedStaff.some((s) => s.name === staff.name)) {
       setSelectedStaff((prev) => [...prev, staff]);
-      setHasStaff(true); // Cập nhật trạng thái khi thêm nhân sự
+      setHasStaff(true);
     }
   };
   const handleCloseStaffModal = () => {
     setIsStaffModalOpen(false);
     if (selectedStaff.length > 0) {
-      setHasStaff(true); // Hiển thị giao diện có nhân sự
+      setHasStaff(true);
     }
     setTimeout(() => setIsButtonClicked(false), 300);
   };
 
   const handleClose = () => {
     if (!isStaffModalOpen) {
-      setSelectedStaff([]); // Reset danh sách khi đóng modal 1
+      setSelectedStaff([]);
       onClose();
     }
   };
@@ -181,7 +194,10 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
                 >
                   Đổi phòng ban
                 </button>
-                <button className="change-role">Đổi chức vụ</button>
+                <button className="change-role" onClick={toggleRoleDropdown}>
+                  Đổi chức vụ
+                </button>
+
                 <button className="change-unit">Đổi đơn vị</button>
                 <button className="remove-staff">Xóa khỏi phòng ban</button>
               </div>
@@ -209,6 +225,36 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
                       className="confirm-btn-1"
                       onClick={handleConfirmChange}
                       disabled={!selectedDepartment}
+                    >
+                      Xác nhận
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+            {isRoleDropdownOpen && (
+              <div className="change-department-1">
+                <div className="change-department-dropdown show">
+                  <label style={{ color: "black" }}>Đổi chức vụ</label>
+                  <select
+                    value={selectedRole}
+                    onChange={(e) => setSelectedRole(e.target.value)}
+                  >
+                    <option value="Đơn vị 1">Cán bộ quản lý</option>
+                    <option value="Đơn vị 2">Cán bộ quản lý 1</option>
+                    <option value="Đơn vị 3">Cán bộ quản lý 2</option>
+                  </select>
+                  <div className="department-actions">
+                    <button
+                      className="cancel-btn-1"
+                      onClick={() => setIsRoleDropdownOpen(false)}
+                    >
+                      Hủy bỏ
+                    </button>
+                    <button
+                      className="confirm-btn-1"
+                      onClick={handleConfirmRoleChange}
+                      disabled={!selectedRole}
                     >
                       Xác nhận
                     </button>
