@@ -20,6 +20,19 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
   const [isStaffModalOpen, setIsStaffModalOpen] = useState(false);
   const [hasStaff, setHasStaff] = useState(false);
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
+  const [isDepartmentDropdownOpen, setIsDepartmentDropdownOpen] =
+    useState(false);
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+
+  const toggleDepartmentDropdown = () => {
+    setIsDepartmentDropdownOpen(!isDepartmentDropdownOpen);
+    setSelectedDepartment(""); // Reset dropdown khi mở lại
+  };
+
+  const handleConfirmChange = () => {
+    console.log("Chuyển sang phòng:", selectedDepartment);
+    setIsDepartmentDropdownOpen(false);
+  };
 
   const handleCheckboxChange = (staffName: string) => {
     setSelectedCheckboxes((prev) =>
@@ -162,10 +175,45 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
             />
             {selectedCheckboxes.length > 0 && (
               <div className="staff-actions">
-                <button className="change-department">Đổi phòng ban</button>
+                <button
+                  className="change-department"
+                  onClick={toggleDepartmentDropdown}
+                >
+                  Đổi phòng ban
+                </button>
                 <button className="change-role">Đổi chức vụ</button>
                 <button className="change-unit">Đổi đơn vị</button>
                 <button className="remove-staff">Xóa khỏi phòng ban</button>
+              </div>
+            )}
+            {isDepartmentDropdownOpen && (
+              <div className="change-department-1">
+                <div className="change-department-dropdown show">
+                  <label style={{ color: "black" }}>Đổi phòng ban</label>
+                  <select
+                    value={selectedDepartment}
+                    onChange={(e) => setSelectedDepartment(e.target.value)}
+                  >
+                    <option value="Kinh doanh">Phòng Kinh doanh</option>
+                    <option value="Nhân sự">Phòng Nhân sự</option>
+                    <option value="Sản xuất">Phòng Sản xuất</option>
+                  </select>
+                  <div className="department-actions">
+                    <button
+                      className="cancel-btn-1"
+                      onClick={() => setIsDepartmentDropdownOpen(false)}
+                    >
+                      Hủy bỏ
+                    </button>
+                    <button
+                      className="confirm-btn-1"
+                      onClick={handleConfirmChange}
+                      disabled={!selectedDepartment}
+                    >
+                      Xác nhận
+                    </button>
+                  </div>
+                </div>
               </div>
             )}
           </div>
