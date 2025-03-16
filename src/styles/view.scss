@@ -1,140 +1,215 @@
 .empty-image {
-    width: 346px;
-    height: 260px;
-    display: block;
-    margin: 30px auto;
-  }
-  
-  .modal-body-1 {
-    margin-top: 98px;
-    text-align: center;
-    width: 700px;
-    height: 500px;
-  }
-  
-  .add-staff-btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 22px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .add-staff-btn:hover {
-    background-color: #45a049;
-  }
-  .add-staff-btn.clicked {
-    background-color: #808080;
-  }
-  
-  .staff-modal {
-    position: fixed;
-    top: 0;
-    right: -350px;
-    width: 350px;
-    height: 100vh;
-    background: white;
-    transition: right 0.3s ease-in-out;
-    border-left: 1px solid #00c853;
-    z-index: 30;
-  }
-  
-  .staff-modal.open {
-    right: none;
-  }
-  
-  .staff-modal-content {
-    padding: 20px;
-  }
-  
-  .staff-modal-header {
-    margin-top: 80px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .confirm-btn-2 {
-    background: white;
-    color: #00c853;
-    padding: 10px;
-    border: 2px solid #00c853;
-    width: 100%;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .title {
-    color: black;
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  .subtitle {
-    color: gray;
-    font-size: 14px;
-  }
-  
-  .staff-list {
-    margin-top: 15px;
-  }
-  
-  .staff-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 0;
-    text-align: left;
-  }
-  
-  .staff-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  }
-  
-  .staff-info {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    margin-left: 10px;
-  }
-  
-  .staff-name {
-    font-size: 14px;
-    font-weight: bold;
-    color: #050505;
-  }
-  
-  .staff-role {
-    font-size: 12px;
-    color: gray;
-    margin-top: 2px;
-  }
-  
-  .staff-role.highlight {
-    color: #007aff;
-  }
-  
-  .add-btn {
-    background: white;
-    color: #1a78e3;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .view-modal {
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .view-modal.shift-left {
-    transform: translateX(-350px);
-  }
+  width: 346px;
+  height: 260px;
+  display: block;
+  margin-top: 150px;
+  margin-bottom: 30px;
+  margin-left: 150px;
+}
+
+.modal-body-1 {
+  margin-top: 0;
+  text-align: center;
+  width: 700px;
+  height: 500px;
+}
+
+.add-staff-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-staff-btn:hover {
+  background-color: #45a049;
+}
+.add-staff-btn.clicked {
+  background-color: #808080;
+}
+
+.staff-modal {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 350px;
+  height: 100vh;
+  background: white;
+  transition: right 0.3s ease-in-out;
+  border-left: 1px solid #00c853;
+  z-index: 30;
+}
+
+.staff-modal.open {
+  right: none;
+}
+
+.staff-modal-content {
+  padding: 20px;
+}
+
+.staff-modal-header {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.confirm-btn-2 {
+  background: white;
+  color: #00c853;
+  padding: 10px;
+  border: 2px solid #00c853;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.title-1 {
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.subtitle {
+  color: gray;
+  font-size: 14px;
+}
+
+.staff-list {
+  margin-top: 15px;
+}
+
+.staff-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  text-align: left;
+}
+
+.staff-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.staff-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.staff-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #050505;
+}
+
+.staff-role {
+  font-size: 12px;
+  color: gray;
+  margin-top: 2px;
+}
+
+.staff-role.highlight {
+  color: #007aff;
+}
+
+.add-btn {
+  background: white;
+  color: #1a78e3;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.view-modal {
+  transition: transform 0.3s ease-in-out;
+}
+
+.view-modal.shift-left {
+  transform: translateX(-350px);
+}
+
+.staff-table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.staff-table {
+  width: 100%;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.staff-table th,
+.staff-table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.staff-table th {
+  background-color: none;
+  color: #435ddf;
+}
+
+.staff-table tbody {
+  background-color: #80808026;
+}
+
+.staff-table .staff-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.staff-table .staff-checkbox {
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  appearance: none; 
+}
+
+.staff-table .staff-checkbox:checked {
+  border-color: #007bff;
+}
+.staff-table .staff-checkbox:checked::after {
+  content: "✔"; 
+  font-size: 14px;
+  color: #0b0c0c; 
+  position: absolute;
+  font-weight: bold;
+}
+
+
+.staff-table .staff-status {
+  display: flex;
+  align-items: baseline;
+  color: green;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
