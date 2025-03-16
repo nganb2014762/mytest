@@ -5,7 +5,7 @@
     margin: 30px auto;
   }
   
-  .modal-body {
+  .modal-body-1 {
     margin-top: 98px;
     text-align: center;
     width: 700px;
@@ -24,4 +24,116 @@
   
   .add-staff-btn:hover {
     background-color: #45a049;
+  }
+  .add-staff-btn.clicked {
+    background-color: #808080;
+  }
+  
+  .staff-modal {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 350px;
+    height: 100vh;
+    background: white;
+    transition: right 0.3s ease-in-out;
+    border-left: 2px solid #00c853;
+    z-index: 30;
+  }
+  
+  .staff-modal.open {
+    right: 0;
+  }
+  
+  .staff-modal-content {
+    padding: 20px;
+  }
+  
+  .staff-modal-header {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .confirm-btn-2 {
+    background: white;
+    color: #00c853;
+    padding: 10px;
+    border: 2px solid #00c853;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .title {
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .subtitle {
+    color: gray;
+    font-size: 14px;
+  }
+  
+  .staff-list {
+    margin-top: 15px;
+  }
+  
+  .staff-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  
+  .staff-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .staff-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 10px;
+  }
+  
+  .staff-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #050505;
+  }
+  
+  .staff-role {
+    font-size: 12px;
+    color: gray;
+    margin-top: 2px;
+  }
+  
+  .staff-role.highlight {
+    color: #007aff;
+  }
+  
+  .add-btn {
+    background: white;
+    color: #1a78e3;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .view-modal {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .view-modal.shift-left {
+    transform: translateX(-350px);
   }
