@@ -58,10 +58,11 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
             >
               + Thêm nhân sự
             </button>
+            <StaffModal isOpen={isStaffModalOpen} onClose={handleCloseStaffModal} />
           </div>
         </div>
       </div>
-      <StaffModal isOpen={isStaffModalOpen} onClose={handleCloseStaffModal} />
+      
     </>
   );
 };
