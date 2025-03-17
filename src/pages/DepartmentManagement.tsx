@@ -11,12 +11,15 @@ const departments = [
   { id: 1, name: "Phòng kinh doanh", count: 8 },
   { id: 2, name: "Phòng công nghệ", count: 4 },
   { id: 3, name: "Phòng sản xuất", count: 10 },
+  { id: 4, name: "Phòng thiết kế", count: 6 },
+  { id: 5, name: "Phòng nhân sự", count: 11 },
 ];
 
 const roles = ["Trưởng phòng", "Phó phòng", "Nhân viên", "Phó Giám Đốc"];
 const rowsPerPageOptions = [5, 10, 15];
 
 const DepartmentManagement = () => {
+  const [isSorted, setIsSorted] = useState(false);
   const [isView, setIsView] = useState(false);
   const [viewDepartment, setViewDepartment] = useState<string | null>(null);
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
@@ -25,12 +28,15 @@ const DepartmentManagement = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<string>("");
   const [isDepartment, setIsDepartment] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(3);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [selectedRole, setSelectedRole] = useState<number | null>(null);
+  const sortedDepartments = isSorted
+    ? [...departments].sort((a, b) => a.name.localeCompare(b.name))
+    : departments;
 
   const totalPages = Math.ceil(departments.length / rowsPerPage);
   const startIndex = (currentPage - 1) * rowsPerPage;
-  const displayedDepartments = departments.slice(
+  const displayedDepartments = sortedDepartments.slice(
     startIndex,
     startIndex + rowsPerPage
   );
@@ -104,9 +110,13 @@ const DepartmentManagement = () => {
             </tbody>
           </table>
           <div className="pagination">
-            <button className="filter-btn">
+            <button
+              className="filter-btn"
+              onClick={() => setIsSorted(!isSorted)}
+            >
               <IoFilterSharp /> Bộ lọc
             </button>
+
             <div className="rows-per-page">
               <label>Số dòng hiển thị</label>
               <select
