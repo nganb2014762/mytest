@@ -345,7 +345,7 @@
   white-space: nowrap; 
 }
 
-.change-department-dropdown select {
+.select-1 {
   padding: 8px;
   width: 200px;
   border-radius: 6px;
@@ -417,10 +417,29 @@
 }
 
 .confirm-btn-3 {
-  background: #ffccbc;
-  color: black;
-  border: none;
+  background: #fdf9f8;
+  color: rgb(217, 5, 5);
+  border-color: red;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
 }
+
+
+
+.staff-actions-row {
+  background: #f9f9f9;
+}
+
+.change-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #050505; 
+}
+
+.dropdown-actions {
+  display: flex;
+  gap: 18px;
+}
+

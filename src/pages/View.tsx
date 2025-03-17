@@ -18,10 +18,29 @@ interface Staff {
 
 const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
   const [isStaffModalOpen, setIsStaffModalOpen] = useState(false);
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
+  const [openDropdown, setOpenDropdown] = useState<{
+    [key: string]: string | null;
+  }>({});
+
   const [isRoleDropdownOpen, setIsRoleDropdownOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState("");
   const [isRemoveConfirmOpen, setIsRemoveConfirmOpen] = useState(false);
   const [staffToRemove, setStaffToRemove] = useState<string | null>(null);
+  const handleRemoveStaff = (staffName: string) => {
+    setSelectedStaff((prev) =>
+      prev.filter((staff) => staff.name !== staffName)
+    );
+    setSelectedCheckboxes((prev) => prev.filter((name) => name !== staffName));
+  };
+
+  const handleCheckboxChange = (staffName: string) => {
+    setSelectedCheckboxes((prev) =>
+      prev.includes(staffName)
+        ? prev.filter((name) => name !== staffName)
+        : [...prev, staffName]
+    );
+  };
 
   const handleConfirmRemove = () => {
     if (staffToRemove) {
@@ -48,7 +67,6 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
   };
 
   const [hasStaff, setHasStaff] = useState(false);
-  const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
   const [isDepartmentDropdownOpen, setIsDepartmentDropdownOpen] =
     useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -76,17 +94,18 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
     setSelectedDepartment("");
   };
 
-  const handleConfirmChange = () => {
-    console.log("Chuyển sang phòng:", selectedDepartment);
-    setIsDepartmentDropdownOpen(false);
+  const toggleDropdown = (
+    staffName: string,
+    type: "department" | "role" | "unit"
+  ) => {
+    setOpenDropdown((prev) => ({
+      ...prev,
+      [staffName]: prev[staffName] === type ? null : type,
+    }));
   };
-
-  const handleCheckboxChange = (staffName: string) => {
-    setSelectedCheckboxes((prev) =>
-      prev.includes(staffName)
-        ? prev.filter((name) => name !== staffName)
-        : [...prev, staffName]
-    );
+  const handleConfirmChange = (staffName: string) => {
+    console.log(`Xác nhận thay đổi cho ${staffName}`);
+    setOpenDropdown((prev) => ({ ...prev, [staffName]: null }));
   };
 
   const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -166,28 +185,190 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
                     </thead>
                     <tbody>
                       {selectedStaff.map((staff, index) => (
-                        <tr key={index} className="staff-row">
-                          <td>
-                            <input
-                              type="checkbox"
-                              className="staff-checkbox"
-                              checked={selectedCheckboxes.includes(staff.name)}
-                              onChange={() => handleCheckboxChange(staff.name)}
-                            />
-                          </td>
-                          <td>
-                            <img
-                              src={image}
-                              alt={staff.name}
-                              className="staff-avatar"
-                            />
-                          </td>
-                          <td className="staff-name">{staff.name}</td>
-                          <td className="staff-role">{staff.role}</td>
-                          <td className="staff-status">
-                            <span className="status-indicator"></span> Hoạt động
-                          </td>
-                        </tr>
+                        <>
+                          <tr key={index} className="staff-row">
+                            <td>
+                              <input
+                                type="checkbox"
+                                className="staff-checkbox"
+                                checked={selectedCheckboxes.includes(
+                                  staff.name
+                                )}
+                                onChange={() =>
+                                  handleCheckboxChange(staff.name)
+                                }
+                              />
+                            </td>
+                            <td>
+                              <img
+                                src={image}
+                                alt={staff.name}
+                                className="staff-avatar"
+                              />
+                            </td>
+                            <td className="staff-name">{staff.name}</td>
+                            <td className="staff-role">{staff.role}</td>
+                            <td className="staff-status">
+                              <span className="status-indicator"></span> Hoạt
+                              động
+                            </td>
+                          </tr>
+
+                          {selectedCheckboxes.includes(staff.name) && (
+                            <tr className="staff-actions-row">
+                              <td colSpan={5}>
+                                <div className="staff-actions">
+                                  <button
+                                    className="change-department"
+                                    onClick={() =>
+                                      toggleDropdown(staff.name, "department")
+                                    }
+                                  >
+                                    ➝ Đổi phòng ban
+                                  </button>
+                                  <button
+                                    className="change-role"
+                                    onClick={() =>
+                                      toggleDropdown(staff.name, "role")
+                                    }
+                                  >
+                                    🔄 Đổi chức vụ
+                                  </button>
+                                  <button
+                                    className="change-unit"
+                                    onClick={() =>
+                                      toggleDropdown(staff.name, "unit")
+                                    }
+                                  >
+                                    🔁 Đổi đơn vị
+                                  </button>
+                                  <button
+                                    className="remove-staff"
+                                    onClick={() =>
+                                      handleOpenRemoveConfirm(staff.name)
+                                    }
+                                  >
+                                    ❌ Xóa khỏi phòng ban
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          )}
+
+                          {openDropdown[staff.name] === "department" && (
+                            <tr className="dropdown-row">
+                              <td colSpan={5}>
+                                <div className="change-dropdown">
+                                  <label>Đổi phòng ban</label>
+                                  <select className="select-1">
+                                    <option value="Kinh doanh">
+                                      Phòng Kinh doanh
+                                    </option>
+                                    <option value="Nhân sự">
+                                      Phòng Nhân sự
+                                    </option>
+                                    <option value="Sản xuất">
+                                      Phòng Sản xuất
+                                    </option>
+                                  </select>
+                                  <div className="dropdown-actions">
+                                    <button
+                                      className=""
+                                      onClick={() =>
+                                        setOpenDropdown({
+                                          ...openDropdown,
+                                          [staff.name]: null,
+                                        })
+                                      }
+                                    >
+                                      Hủy bỏ
+                                    </button>
+                                    <button
+                                      className="confirm-btn-1"
+                                      onClick={() =>
+                                        handleConfirmChange(staff.name)
+                                      }
+                                    >
+                                      Xác nhận
+                                    </button>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          )}
+
+                          {/* Dropdown đổi chức vụ */}
+                          {openDropdown[staff.name] === "role" && (
+                            <tr className="dropdown-row">
+                              <td colSpan={5}>
+                                <div className="change-dropdown">
+                                  <label>Đổi chức vụ</label>
+                                  <select className="select-1">
+                                    <option value="Đơn vị 1">Chức vụ 1</option>
+                                    <option value="Đơn vị 2">Chức vụ 2</option>
+                                    <option value="Đơn vị 3">Chức vụ 3</option>
+                                  </select>
+                                  <div className="dropdown-actions">
+                                    <button
+                                      onClick={() =>
+                                        setOpenDropdown({
+                                          ...openDropdown,
+                                          [staff.name]: null,
+                                        })
+                                      }
+                                    >
+                                      Hủy bỏ
+                                    </button>
+                                    <button
+                                      className="confirm-btn-1"
+                                      onClick={() =>
+                                        handleConfirmChange(staff.name)
+                                      }
+                                    >
+                                      Xác nhận
+                                    </button>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          )}
+
+                          {/* Dropdown đổi đơn vị */}
+                          {openDropdown[staff.name] === "unit" && (
+                            <tr className="dropdown-row">
+                              <td colSpan={5}>
+                                <div className="change-dropdown">
+                                  <label>Đổi đơn vị</label>
+                                  <select className="select-1">
+                                    <option value="Đơn vị 1">Đơn vị 1</option>
+                                    <option value="Đơn vị 2">Đơn vị 2</option>
+                                    <option value="Đơn vị 3">Đơn vị 3</option>
+                                  </select>
+                                  <div className="dropdown-actions">
+                                    <button
+                                      onClick={() =>
+                                        setOpenDropdown({
+                                          ...openDropdown,
+                                          [staff.name]: null,
+                                        })
+                                      }
+                                    >
+                                      Hủy bỏ
+                                    </button>
+                                    <button
+                                      className="confirm-btn-1"
+                                      onClick={() =>
+                                        handleConfirmChange(staff.name)
+                                      }
+                                    >
+                                      Xác nhận
+                                    </button>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          )}
+                        </>
                       ))}
                     </tbody>
                   </table>
@@ -220,30 +401,6 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
               onClose={handleCloseStaffModal}
               onAddStaff={handleAddStaff}
             />
-            {selectedCheckboxes.length > 0 && (
-              <div className="staff-actions">
-                <button
-                  className="change-department"
-                  onClick={toggleDepartmentDropdown}
-                >
-                  Đổi phòng ban
-                </button>
-                <button className="change-role" onClick={toggleRoleDropdown}>
-                  Đổi chức vụ
-                </button>
-
-                <button className="change-unit" onClick={toggleUnitDropdown}>
-                  Đổi đơn vị
-                </button>
-
-                <button
-                  className="remove-staff"
-                  onClick={() => handleOpenRemoveConfirm("Ky Kellaway")}
-                >
-                  Xóa khỏi phòng ban
-                </button>
-              </div>
-            )}
             {isDepartmentDropdownOpen && (
               <div className="change-department-1">
                 <div className="change-department-dropdown show">
@@ -265,8 +422,8 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
                     </button>
                     <button
                       className="confirm-btn-1"
-                      onClick={handleConfirmChange}
-                      disabled={!selectedDepartment}
+                      onClick={handleConfirmUnitChange}
+                      disabled={!selectedUnit}
                     >
                       Xác nhận
                     </button>
@@ -276,12 +433,17 @@ const View: React.FC<ViewProps> = ({ isOpen, onClose, departmentName }) => {
             )}
             {isRemoveConfirmOpen && (
               <div className="remove-confirm">
-                <p style={{color:"black"}}>Chắc chắn xóa người này khỏi phòng ban?</p>
+                <p style={{ color: "black" }}>
+                  Chắc chắn xóa người này khỏi phòng ban?
+                </p>
                 <div className="confirm-actions">
                   <button className="cancel-btn-3" onClick={handleCancelRemove}>
                     Hủy bỏ
                   </button>
-                  <button className="confirm-btn-3" onClick={handleConfirmRemove}>
+                  <button
+                    className="confirm-btn-3"
+                    onClick={handleConfirmRemove}
+                  >
                     Xác nhận
                   </button>
                 </div>
